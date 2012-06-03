@@ -1,0 +1,6 @@
+<Configuration>
+  <NamespaceFolders>
+    <SkipFolder>AF750580-3293-4CE8-9D0C-8F69E05E8505/d:Diagnostics</SkipFolder>
+    <SkipFolder>AF750580-3293-4CE8-9D0C-8F69E05E8505/d:Extensions</SkipFolder>
+  </NamespaceFolders>
+</Configuration>

@@ -1,0 +1,12 @@
+﻿<Application x:Class="Bobasoft.Example.WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:bobasoft="http://schemas.bobasoft.com/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <bobasoft:CommonVisibilityConverter x:Key="visibilityConverter" />
+        <bobasoft:CommonVisibilityConverter x:Key="invisibilityConverter" Inverse="True" />
+        <bobasoft:EnumConverter x:Key="enumConverter"/>
+        <bobasoft:InverseConverter x:Key="inverseConverter"/>
+        <bobasoft:BooleanValueConverter x:Key="booleanConverter"/>
+    </Application.Resources>
+</Application>

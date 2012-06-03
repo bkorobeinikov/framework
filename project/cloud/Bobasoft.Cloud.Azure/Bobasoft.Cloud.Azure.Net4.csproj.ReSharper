@@ -1,0 +1,8 @@
+<Configuration>
+  <NamespaceFolders>
+    <SkipFolder>1BEDF881-4E38-49F0-A088-ED9ACEE4E1FC/d:Abstract</SkipFolder>
+    <SkipFolder>1BEDF881-4E38-49F0-A088-ED9ACEE4E1FC/d:Attributes</SkipFolder>
+    <SkipFolder>1BEDF881-4E38-49F0-A088-ED9ACEE4E1FC/d:Entities</SkipFolder>
+    <SkipFolder>1BEDF881-4E38-49F0-A088-ED9ACEE4E1FC/d:Helpers</SkipFolder>
+  </NamespaceFolders>
+</Configuration>
