@@ -114,7 +114,7 @@ namespace Bobasoft
 
                     // TODO: create caching
 #if WinRT
-                	var constructorInfos = resolveTo.GetType().GetTypeInfo().DeclaredConstructors.ToArray();
+                	var constructorInfos = resolveTo.Type.GetTypeInfo().DeclaredConstructors.ToArray();
 #else
                     var constructorInfos = resolveTo.Type.GetConstructors();
 #endif

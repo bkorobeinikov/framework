@@ -25,5 +25,28 @@ namespace Bobasoft.Presentation.MVVM
 		}
 
 		#endregion
+
+		//======================================================
+		#region _Private, protected, internal methods_
+
+		protected override void OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+		{
+			base.OnNavigatedTo(e);
+			Model.OnNavigatedTo(e);
+		}
+
+		protected override void OnNavigatedFrom(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+		{
+			base.OnNavigatedFrom(e);
+			Model.OnNavigatedFrom(e);
+		}
+
+		protected override void OnNavigatingFrom(Windows.UI.Xaml.Navigation.NavigatingCancelEventArgs e)
+		{
+			base.OnNavigatingFrom(e);
+			Model.OnNavigatingFrom(e);
+		}
+
+		#endregion
 	}
 }

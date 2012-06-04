@@ -1,4 +1,6 @@
 ﻿using System;
+using Windows.UI.Core;
+using Windows.UI.Xaml.Navigation;
 
 namespace Bobasoft.Presentation.MVVM
 {
@@ -9,11 +11,16 @@ namespace Bobasoft.Presentation.MVVM
 
 		public PageBase Page { get; set; }
 
+		public CoreDispatcher Dispatcher
+		{
+			get { return Page.Dispatcher; }
+		}
+
 		#endregion
 
 		//======================================================
 		#region _Private, protected, internal methods_
-
+		
 		protected virtual void GoHome()
 		{
 			if (Page.Frame != null)
@@ -42,6 +49,23 @@ namespace Bobasoft.Presentation.MVVM
 		protected virtual void Navigate(Uri uri)
 		{
 			throw new NotImplementedException();
+		}
+
+		protected internal virtual void OnNavigatedTo(NavigationEventArgs e)
+		{
+		}
+
+		protected internal virtual void OnNavigatedFrom(NavigationEventArgs e)
+		{
+		}
+
+		protected internal virtual void OnNavigatingFrom(NavigatingCancelEventArgs e)
+		{
+		}
+
+		public virtual void DispatchAsync(DispatchedHandler action, CoreDispatcherPriority priority = CoreDispatcherPriority.Normal)
+		{
+			Page.Dispatcher.RunAsync(priority, action);
 		}
 
 		#endregion
