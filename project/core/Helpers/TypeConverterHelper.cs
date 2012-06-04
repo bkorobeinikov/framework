@@ -21,7 +21,8 @@ namespace Bobasoft
         {
             if (string.IsNullOrEmpty(value) || value == "null")
                 return null;
-
+			
+#if !WinRT
             if (typeof(string).IsAssignableFrom(type))
                 return value;
 
@@ -59,7 +60,8 @@ namespace Bobasoft
 
             if (typeof(sbyte).IsAssignableFrom(type))
                 return sbyte.Parse(value);
-            
+#endif
+
             return null;
         }
 

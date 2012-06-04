@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+#if WinRT
+using System.Reflection;
+#endif
 
 namespace Bobasoft
 {
@@ -109,8 +113,11 @@ namespace Bobasoft
                         resolveTo = new DependencyValue(type);
 
                     // TODO: create caching
-
+#if WinRT
+                	var constructorInfos = resolveTo.GetType().GetTypeInfo().DeclaredConstructors.ToArray();
+#else
                     var constructorInfos = resolveTo.Type.GetConstructors();
+#endif
                     if (constructorInfos.Length > 1)
                         throw new Exception("Cannot resolve a type that has more than one constructor.");
                     var constructor = constructorInfos[0];
@@ -128,7 +135,11 @@ namespace Bobasoft
                         var parameters = new object[parameterInfos.Length];
                         foreach (var parameterInfo in parameterInfos)
                         {
-                            var depattr = parameterInfo.GetCustomAttributes(typeof (DependencyAttribute), true);
+#if WinRT
+							var depattr = parameterInfo.GetCustomAttributes(typeof(DependencyAttribute), true).ToArray();
+#else
+							var depattr = parameterInfo.GetCustomAttributes(typeof (DependencyAttribute), true);
+#endif
                             if (depattr.Length > 0)
                                 parameters[parameterInfo.Position] = Resolve(parameterInfo.ParameterType, ((DependencyAttribute)depattr[0]).Name);
                             else

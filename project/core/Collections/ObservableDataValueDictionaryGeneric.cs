@@ -5,6 +5,9 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
+#if WinRT
+using System.Reflection;
+#endif
 
 namespace Bobasoft.Collections
 {
@@ -176,7 +179,11 @@ namespace Bobasoft.Collections
         {
             if (values != null)
             {
+#if WinRT
+				foreach (var property in values.GetType().GetRuntimeProperties())
+#else
                 foreach (var property in values.GetType().GetProperties())
+#endif
                 {
                     var obj = property.GetValue(values, null);
                     Add(property.Name, (TValue)obj);
@@ -246,7 +253,11 @@ namespace Bobasoft.Collections
 
         private int AddKeyForIndex(string key)
         {
+#if WinRT
+			var newkey = key.ToLower();
+#else
             var newkey = key.ToLower(CultureInfo.InvariantCulture);
+#endif
             if (!_keys.Contains(newkey))
             {
                 _keys.Add(newkey);
@@ -258,7 +269,11 @@ namespace Bobasoft.Collections
 
         private int RemoveKeyForIndex(string key)
         {
+#if WinRT
+			var newkey = key.ToLower();
+#else
             var newkey = key.ToLower(CultureInfo.InvariantCulture);
+#endif
             if (_keys.Contains(newkey))
             {
                 var index = _keys.IndexOf(newkey);

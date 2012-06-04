@@ -1,5 +1,10 @@
 using System;
+#if WinRT
+using Windows.UI.Xaml;
+#else
 using System.Windows.Threading;
+#endif
+
 
 namespace Bobasoft.Presentation
 {
@@ -51,7 +56,11 @@ namespace Bobasoft.Presentation
         //======================================================
         #region _Private, protected, internal methods_
 
+#if WinRT
+		private static void OnTimeout(object sender, object args)
+#else
         private static void OnTimeout(object sender, EventArgs args)
+#endif
         {
             var t = sender as DispatcherDelayTimer;
             if (t != null)

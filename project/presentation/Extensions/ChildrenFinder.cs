@@ -1,7 +1,14 @@
 using System.Collections.Generic;
+#if METRO
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
+#else
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+#endif
+
 
 namespace Bobasoft.Presentation.Extensions
 {

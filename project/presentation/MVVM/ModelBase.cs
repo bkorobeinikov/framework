@@ -48,11 +48,11 @@ namespace Bobasoft.Presentation.MVVM
             set
             {
                 value = (value ? ++_isBusyCount : (_isBusyCount > 0 ? --_isBusyCount : 0)) > 0;
-                if (_isBusy != value)
-                {
-                    _isBusy = value;
-                    SmartDispatcher.DispatchAsync(() => RaisePropertyChanged("IsBusy"));
-                }
+#if WinRT
+            	SetProperty(ref _isBusy, value, "IsBusy");
+#else
+				SmartDispatcher.DispatchAsync(() => SetProperty(ref _isBusy, value, "IsBusy"));
+#endif
             }
         }
 
@@ -120,6 +120,12 @@ namespace Bobasoft.Presentation.MVVM
             if ((enable.HasValue || visible.HasValue) && Commands.ContainsKey(name))
             {
                 var command = Commands[name];
+#if WinRT
+					if (enable.HasValue)
+						command.IsEnable = enable.Value;
+					if (visible.HasValue)
+						command.IsVisible = visible.Value;
+#else
                 SmartDispatcher.DispatchAsync(() =>
                                               {
                                                   if (enable.HasValue)
@@ -127,6 +133,7 @@ namespace Bobasoft.Presentation.MVVM
                                                   if (visible.HasValue)
                                                       command.IsVisible = visible.Value;
                                               });
+#endif
             }
         }
 
@@ -169,8 +176,15 @@ namespace Bobasoft.Presentation.MVVM
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        protected virtual void SetValue<T>(string key, T value)
+		protected virtual void SetValue<T>(string key, T value)
         {
+#if WinRT
+        	DataValue v;
+        	if (!Values.TryGetValue(key, out v))
+        		Values[key] = new DataValue(value);
+        	else
+        		v.Value = value;
+#else
             SmartDispatcher.DispatchAsync(() =>
                             {
                                 DataValue v;
@@ -179,9 +193,10 @@ namespace Bobasoft.Presentation.MVVM
                                 else
                                     v.Value = value;
                             });
+#endif
         }
 
-        protected virtual T GetValue<T>(string key)
+    	protected virtual T GetValue<T>(string key)
         {
             return (T) Values[key].Value;
         }

@@ -1,7 +1,9 @@
 ﻿using System.Reflection;
+#if !WinRT
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows.Markup;
+#endif
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -28,8 +30,10 @@ using System.Windows.Markup;
 [assembly: AssemblyVersion("0.6.0.0")]
 [assembly: AssemblyFileVersion("0.6.0.0")]
 
+#if !WinRT
 [assembly: XmlnsPrefix("http://schemas.bobasoft.com/xaml", "bobasoft")]
 [assembly: XmlnsDefinition("http://schemas.bobasoft.com/xaml", "Bobasoft.Presentation", AssemblyName = "Bobasoft.Presentation")]
 [assembly: XmlnsDefinition("http://schemas.bobasoft.com/xaml", "Bobasoft.Presentation.Converters", AssemblyName = "Bobasoft.Presentation")]
 [assembly: XmlnsDefinition("http://schemas.bobasoft.com/xaml", "Bobasoft.Presentation.Actions", AssemblyName = "Bobasoft.Presentation")]
 [assembly: XmlnsDefinition("http://schemas.bobasoft.com/xaml", "Bobasoft.Presentation.MVVM", AssemblyName = "Bobasoft.Presentation")]
+#endif

@@ -1,7 +1,12 @@
 using System;
 using System.Globalization;
+#if METRO
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Data;
+#else
 using System.Windows;
 using System.Windows.Data;
+#endif
 
 namespace Bobasoft.Presentation.Converters
 {
@@ -27,7 +32,11 @@ namespace Bobasoft.Presentation.Converters
         //======================================================
         #region _Public methods_
 
+#if WinRT
+		public virtual object Convert(object value, Type targetType, object parameter, string language)
+#else
         public virtual object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+#endif
         {
             if (targetType != typeof(Visibility))
                 throw new ArgumentOutOfRangeException("targetType", "VisibilityConverter can only convert to Visibility");
@@ -57,7 +66,11 @@ namespace Bobasoft.Presentation.Converters
             return !Inverse ? result : result == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         }
 
+#if WinRT
+		public virtual object ConvertBack(object value, Type targetType, object parameter, string language)
+#else
         public virtual object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+#endif
         {
             if (!(value is Visibility))
                 throw new ArgumentOutOfRangeException("value", "VisibilityConverter can only convert from Visibility");

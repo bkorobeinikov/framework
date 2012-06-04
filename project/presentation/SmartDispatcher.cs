@@ -1,11 +1,16 @@
 using System;
+#if WinRT
+using Windows.UI.Xaml;
+#else
 using System.Windows;
 using System.Windows.Threading;
+#endif
 
 namespace Bobasoft.Presentation
 {
     public static class SmartDispatcher
     {
+#if !WinRT
         public static Dispatcher DefaultDispatcher
         {
             get
@@ -64,6 +69,7 @@ namespace Bobasoft.Presentation
         {
             DefaultDispatcher.Invoke(action);
         }
+#endif
 #endif
     }
 }

@@ -16,7 +16,7 @@ namespace Bobasoft
         //======================================================
         #region _Public properties_
 
-#if !PORTABLE
+#if !METRO
         /// <summary>
         /// Gets all loaded assemblies in current domain
         /// </summary>
@@ -31,7 +31,7 @@ namespace Bobasoft
         //======================================================
         #region _Public methods_
 
-#if !PORTABLE
+#if !METRO
         public static IEnumerable<Assembly> FindAssemblies(IEnumerable<string> assembliesName)
         {
             return FindAllAssemblies(assembliesName);
@@ -45,14 +45,16 @@ namespace Bobasoft
 
         public static IEnumerable<Type> FindTypesByInterface(this Assembly assembly, Type interfaceType)
         {
-#if !PORTABLE
+#if !METRO
             return assembly.GetTypes().Where(type => type.GetInterface(interfaceType.Name, false) != null);
+#elif METRO
+			throw new NotImplementedException();
 #else
             return assembly.GetTypes().Where(type => type.GetInterfaces().Contains(interfaceType));
 #endif
         }
 
-#if !PORTABLE
+#if !METRO
         public static IEnumerable<Type> FindAllTypesByInterface<TInterface>(string[] assembliesName = null)
         {
             return FindAllTypesByInterface(typeof (TInterface), assembliesName);
@@ -67,10 +69,14 @@ namespace Bobasoft
 
         public static IEnumerable<Type> FindTypesByBaseType(this Assembly assembly, Type baseType)
         {
+#if WinRT
+			return assembly.DefinedTypes.Where(type => type.IsSubclassOf(baseType)).Select(type => type.AsType());
+#else
             return assembly.GetTypes().Where(type => type.IsSubclassOf(baseType));
+#endif
         }
 
-#if !PORTABLE
+#if !METRO
         public static IEnumerable<Type> FindAllTypesByBaseType(Type baseType, string[] assembliesName = null)
         {
             var assemblies = FindAllAssemblies(assembliesName);
@@ -80,17 +86,29 @@ namespace Bobasoft
 
         public static bool HasAttribute<TAttribute>(this Type type) where TAttribute : Attribute
         {
+#if WinRT
+        	throw new NotImplementedException();
+#else
             return type.GetCustomAttributes(typeof (TAttribute), true).Length > 0;
+#endif
         }
 
         public static bool HasAttribute<TAttribute>(this PropertyInfo property) where TAttribute : Attribute
         {
+#if WinRT
+        	throw new NotImplementedException();
+#else
             return property.GetCustomAttributes(typeof(TAttribute), true).Length > 0;
+#endif
         }
 
         public static TAttribute GetAttribute<TAttribute>(this Type type) where TAttribute : Attribute
         {
+#if WinRT
+        	throw new NotImplementedException();
+#else
             return type.GetCustomAttributes(typeof (TAttribute), true).Cast<TAttribute>().FirstOrDefault();
+#endif
         }
 
         public static TAttribute GetAttribute<TAttribute>(this PropertyInfo property) where TAttribute : Attribute
@@ -118,7 +136,7 @@ namespace Bobasoft
 
             return assemblies;
         }
-#elif !PORTABLE
+#elif !METRO
         private static ICollection<Assembly> FindAllAssemblies(IEnumerable<string> assembliesName)
         {
             if (assembliesName != null)
@@ -141,7 +159,9 @@ namespace Bobasoft
         //======================================================
         #region _Private, protected, internal fields_
 
+#if !WinRT
         private static ICollection<Assembly> _assemblies;
+#endif
 
         #endregion
     }

@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+#if WinRT
+using System.Reflection;
+#endif
 
 namespace Bobasoft.Collections
 {
@@ -144,7 +147,11 @@ namespace Bobasoft.Collections
         {
             if (values != null)
             {
+#if WinRT
+				foreach (var property in values.GetType().GetRuntimeProperties())
+#else
                 foreach (var property in values.GetType().GetProperties())
+#endif
                 {
                     var obj = property.GetValue(values, null);
                     Add(property.Name, obj);

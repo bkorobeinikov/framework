@@ -1,4 +1,8 @@
-﻿using System.Windows.Controls;
+﻿#if METRO
+using Windows.UI.Xaml.Controls;
+#else
+using System.Windows.Controls;
+#endif
 
 namespace Bobasoft.Presentation.MVVM
 {
