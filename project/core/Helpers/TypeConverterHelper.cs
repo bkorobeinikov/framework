@@ -1,4 +1,7 @@
 using System;
+#if WinRT
+using System.Reflection;
+#endif
 
 namespace Bobasoft
 {
@@ -60,6 +63,45 @@ namespace Bobasoft
 
             if (typeof(sbyte).IsAssignableFrom(type))
                 return sbyte.Parse(value);
+#else
+        	var t = type.GetTypeInfo();
+			if (typeof(string).GetTypeInfo().IsAssignableFrom(t))
+				return value;
+
+			if (typeof(Enum).GetTypeInfo().IsAssignableFrom(t))
+				return Enum.Parse(type, value, true);
+
+			if (typeof(bool).GetTypeInfo().IsAssignableFrom(t))
+				return bool.Parse(value);
+
+			if (typeof(int).GetTypeInfo().IsAssignableFrom(t))
+				return int.Parse(value);
+
+			if (typeof(double).GetTypeInfo().IsAssignableFrom(t))
+				return double.Parse(value);
+
+			if (typeof(Guid).GetTypeInfo().IsAssignableFrom(t))
+				return new Guid(value);
+
+			if (typeof(long).GetTypeInfo().IsAssignableFrom(t))
+				return long.Parse(value);
+
+			// ------------------ not often used ----
+
+			if (typeof(uint).GetTypeInfo().IsAssignableFrom(t))
+				return uint.Parse(value);
+
+			if (typeof(ulong).GetTypeInfo().IsAssignableFrom(t))
+				return ulong.Parse(value);
+
+			if (typeof(float).GetTypeInfo().IsAssignableFrom(t))
+				return float.Parse(value);
+
+			if (typeof(byte).GetTypeInfo().IsAssignableFrom(t))
+				return byte.Parse(value);
+
+			if (typeof(sbyte).GetTypeInfo().IsAssignableFrom(t))
+				return sbyte.Parse(value);
 #endif
 
             return null;

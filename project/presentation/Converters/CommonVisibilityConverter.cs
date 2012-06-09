@@ -76,7 +76,7 @@ namespace Bobasoft.Presentation.Converters
                 throw new ArgumentOutOfRangeException("value", "VisibilityConverter can only convert from Visibility");
 
             if (targetType == typeof(bool))
-                return ((Visibility)value == Visibility.Visible) ? true : false;
+                return (Visibility)value == Visibility.Visible;
 
             throw new ArgumentException("VisibilityConverter can only convert to Boolean", "targetType");
         }

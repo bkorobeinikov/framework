@@ -26,17 +26,18 @@ namespace Bobasoft.Presentation.Converters
             var param = parameter != null ? parameter.ToString() : string.Empty;
 
             var type = value.GetType().GetTypeInfo();
-            if (!_cache.ContainsKey(type))
+            if (!Cache.ContainsKey(type))
             {
                 var fields = type.DeclaredFields.Where(f => f.IsLiteral).ToArray();
                 var values = new Dictionary<long, string>(fields.Count());
+
                 foreach (var fieldInfo in fields)
                 {
-                    var a = fieldInfo.GetCustomAttributes(typeof (DescriptionAttribute), false).FirstOrDefault() as DescriptionAttribute;
-                    values.Add(System.Convert.ToInt64(fieldInfo.GetRawConstantValue()), a != null ? a.Description : fieldInfo.GetValue(null).ToString());
+                	var v = fieldInfo.GetValue(null);
+                	values.Add(System.Convert.ToInt64(v), v.ToString());
                 }
 
-                _cache.Add(type, values);
+                Cache.Add(type, values);
 
                 if (param == "array")
                     return values.Values;
@@ -45,9 +46,9 @@ namespace Bobasoft.Presentation.Converters
             }
 
             if (param == "array")
-                return _cache[type].Values;
+                return Cache[type].Values;
 
-            return _cache[type][System.Convert.ToInt64(value)];
+            return Cache[type][System.Convert.ToInt64(value)];
         }
 #else
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -90,18 +91,7 @@ namespace Bobasoft.Presentation.Converters
                 return null;
 
             var v = value.ToString();
-
-            var fields = targetType.GetTypeInfo().DeclaredFields.Where(f => f.IsLiteral);
-            foreach (var fieldInfo in fields)
-            {
-                var a = fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault() as DescriptionAttribute;
-                if (a != null && a.Description == v)
-                    return fieldInfo.GetValue(null);
-                if (fieldInfo.GetValue(null).ToString() == v)
-                    return fieldInfo.GetValue(null);
-            }
-
-            return targetType.GetTypeInfo().IsValueType ? Activator.CreateInstance(targetType) : null;
+			return Enum.Parse(targetType, v, true);
         }
 #else
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -121,17 +111,17 @@ namespace Bobasoft.Presentation.Converters
                     return fieldInfo.GetValue(null);
             }
 
-            return targetType.IsValueType ? Activator.CreateInstance(targetType) : null;
+            return targetType.IsValueType ? Activator.CreateInstance(targetType) : DependencyProperty.UnsetValue;
         }
 #endif
 
-        #endregion
+		#endregion
 
-        //======================================================
+		//======================================================
         #region _Private, protected, internal fields_
 
 #if WinRT
-		protected static Dictionary<TypeInfo, IDictionary<long, string>> _cache = new Dictionary<TypeInfo, IDictionary<long, string>>(3);
+		protected static Dictionary<TypeInfo, IDictionary<long, string>> Cache = new Dictionary<TypeInfo, IDictionary<long, string>>(3);
 #else
         protected static Dictionary<Type, IDictionary<long, string>> _cache = new Dictionary<Type, IDictionary<long, string>>(3);
 #endif

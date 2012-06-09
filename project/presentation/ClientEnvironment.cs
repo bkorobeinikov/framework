@@ -16,7 +16,7 @@ namespace Bobasoft.Presentation
 #if SILVERLIGHT
             get { return DesignerProperties.IsInDesignTool; }
 #elif WinRT
-			get { return true; }
+			get { return Windows.ApplicationModel.DesignMode.DesignModeEnabled; }
 #else
             get { return (bool) (DesignerProperties.IsInDesignModeProperty.GetMetadata(typeof (DependencyObject)).DefaultValue); }
 #endif
