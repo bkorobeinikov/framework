@@ -50,6 +50,7 @@ namespace Bobasoft.Presentation.Interactivity
 			if (e.Key != Key || GetCurrentModifiers() != (VirtualKeyModifiers)Modifiers)
 				return;
 
+			//Debug.WriteLine("Key: {0}", e.Key);
 			InvokeActions(e);
 			e.Handled = true;
 		}
@@ -59,7 +60,7 @@ namespace Bobasoft.Presentation.Interactivity
 			var modifiers = VirtualKeyModifiers.None;
 
 			var current = CoreWindow.GetForCurrentThread();
-			if (current.GetKeyState(VirtualKey.RightControl) != CoreVirtualKeyStates.None || current.GetKeyState(VirtualKey.LeftControl) != CoreVirtualKeyStates.None)
+			if (current.GetKeyState(VirtualKey.RightControl) != CoreVirtualKeyStates.None || current.GetKeyState(VirtualKey.LeftControl) != CoreVirtualKeyStates.None || current.GetKeyState(VirtualKey.Control) != CoreVirtualKeyStates.None)
 				modifiers |= VirtualKeyModifiers.Control;
 			if (current.GetKeyState(VirtualKey.RightMenu) != CoreVirtualKeyStates.None || current.GetKeyState(VirtualKey.LeftMenu) != CoreVirtualKeyStates.None)
 				modifiers |= VirtualKeyModifiers.Menu;
@@ -67,6 +68,8 @@ namespace Bobasoft.Presentation.Interactivity
 				modifiers |= VirtualKeyModifiers.Shift;
 			if (current.GetKeyState(VirtualKey.RightWindows) != CoreVirtualKeyStates.None || current.GetKeyState(VirtualKey.LeftWindows) != CoreVirtualKeyStates.None)
 				modifiers |= VirtualKeyModifiers.Windows;
+
+			//Debug.WriteLine("Modifiers: {0}", modifiers);
 
 			return modifiers;
 		}
@@ -115,7 +118,7 @@ namespace Bobasoft.Presentation.Interactivity
 			DependencyProperty.Register("Modifiers", typeof(int), typeof(KeyTrigger), new PropertyMetadata(0));
 
 		public static readonly DependencyProperty ActiveOnFocusProperty =
-			DependencyProperty.Register("ActiveOnFocus", typeof (bool), typeof (KeyTrigger), new PropertyMetadata(false));
+			DependencyProperty.Register("ActiveOnFocus", typeof (bool), typeof (KeyTrigger), new PropertyMetadata(true));
 
 		public static readonly DependencyProperty FiredOnProperty =
 			DependencyProperty.Register("FiredOn", typeof (KeyTriggerFiredOn), typeof (KeyTrigger), new PropertyMetadata(KeyTriggerFiredOn.KeyDown));

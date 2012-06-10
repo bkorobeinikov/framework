@@ -9,11 +9,22 @@ namespace Bobasoft.Presentation.Interactivity
 	public abstract class Trigger : AttachableObject
 	{
 		//======================================================
+		#region _Constructors_
+
+		protected Trigger()
+		{
+			var collection = new TriggerActionCollection();
+			SetValue(ActionsProperty, collection);
+		}
+
+		#endregion
+
+		//======================================================
 		#region _Public properties_
 
 		public TriggerActionCollection Actions
 		{
-			get { return (TriggerActionCollection)GetValue(ActionsPropertyKey); }
+			get { return (TriggerActionCollection)GetValue(ActionsProperty); }
 		}
 
 		#endregion
@@ -60,8 +71,8 @@ namespace Bobasoft.Presentation.Interactivity
 		//======================================================
 		#region _Private, protected, internal fields_
 
-		public static readonly DependencyProperty ActionsPropertyKey =
-			DependencyProperty.Register("Actions", typeof (TriggerActionCollection), typeof (Trigger), new PropertyMetadata(new TriggerActionCollection()));
+		public static readonly DependencyProperty ActionsProperty =
+			DependencyProperty.Register("Actions", typeof (TriggerActionCollection), typeof (Trigger), new PropertyMetadata(null));
 
 		#endregion
 	}

@@ -8,15 +8,6 @@ namespace Bobasoft.Presentation.Interactivity
 	public abstract class AttachableObject : FrameworkElement, IAttachedObject
 	{
 		//======================================================
-		#region _Constructors_
-
-		protected AttachableObject()
-		{
-		}
-
-		#endregion
-
-		//======================================================
 		#region _Public properties_
 
 		public DependencyObject AssociatedObject { get; protected set; }
@@ -88,7 +79,6 @@ namespace Bobasoft.Presentation.Interactivity
 
 		private void OnLoaded(object sender, RoutedEventArgs e)
 		{
-			_isLoaded = true;
 			if (AssociatedObject != null)
 				UpdateDataContextBinding();
 		}
@@ -98,13 +88,6 @@ namespace Bobasoft.Presentation.Interactivity
 			if (AssociatedObject != null)
 				SetBinding(DataContextProperty, new Binding {Path = new PropertyPath("DataContext"), Source = AssociatedObject});
 		}
-
-		#endregion
-
-		//======================================================
-		#region _Private, protected, internal fields_
-
-		private bool _isLoaded;		
 
 		#endregion
 	}

@@ -12,7 +12,7 @@ namespace Bobasoft.Presentation.Interactivity
 
 		protected EventTriggerBase()
 		{
-			_onEventHandler = new RoutedEventHandler(OnEvent1);
+			_onEventHandler = new Action<object, object>(OnEvent1);
 		}
 
 		#endregion
@@ -98,7 +98,6 @@ namespace Bobasoft.Presentation.Interactivity
 
 		protected virtual void RegisterEvent(object obj, string eventName)
 		{
-			//var @event = GetEventInfo(obj.GetType(), eventName);// obj.GetType().GetRuntimeEvent(eventName);
 			var @event = obj.GetType().GetRuntimeEvent(eventName);
 
 			if (@event == null)
@@ -115,6 +114,8 @@ namespace Bobasoft.Presentation.Interactivity
 
 				throw new ArgumentException("Invalid event");
 			}
+
+			_onEventHandler = typeof(EventTriggerBase).GetTypeInfo().GetDeclaredMethod("OnEvent1").CreateDelegate(@event.EventHandlerType, this);
 
 			WindowsRuntimeMarshal.AddEventHandler<object>(handler => (EventRegistrationToken)@event.AddMethod.Invoke(obj, new[] { handler }),
 														  t => @event.RemoveMethod.Invoke(obj, new[] { (object)t }),
