@@ -29,7 +29,7 @@ namespace Bobasoft.Presentation.Interactivity
 		{
 			if (AssociatedObject == null)
 				return;
-
+			
 			var cmd = ResolveCommand();
 
 			if (cmd == null || !cmd.CanExecute(CommandParameter))

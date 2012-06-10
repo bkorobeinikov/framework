@@ -113,6 +113,10 @@
     <Compile Include="Converters\DateTimeConverter.cs" />
     <Compile Include="Converters\EnumConverter.cs" />
     <Compile Include="Converters\InverseConverter.cs" />
+    <Compile Include="Cssx\Cssx.cs" />
+    <Compile Include="Cssx\Cssx.Selector.cs" />
+    <Compile Include="Cssx\Cssx.StyleEntry.cs" />
+    <Compile Include="Cssx\Cssx.StyleItem.cs" />
     <Compile Include="DispatcherDelayTimer.cs" />
     <Compile Include="Extensions\ChildrenFinder.cs" />
     <Compile Include="Interactivity\AttachableCollection.cs" />
