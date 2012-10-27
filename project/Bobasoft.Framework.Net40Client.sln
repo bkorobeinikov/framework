@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bobasoft.Core.Net4", "core\Bobasoft.Core.Net4.csproj", "{AF750580-3293-4CE8-9D0C-8F69E05E8505}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bobasoft.Core.Net40Client", "core\Bobasoft.Core.Net40Client.csproj", "{AF750580-3293-4CE8-9D0C-8F69E05E8505}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4CC420CB-3F26-49CF-818F-216CCD725DA1}"
 	ProjectSection(SolutionItems) = preProject
@@ -13,17 +13,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{32C3C850
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bobasoft.Core.Net4.Tests", "core.tests\Bobasoft.Core.Net4.Tests.csproj", "{A235BD1C-BA05-4A75-B167-AD388AA4C98A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bobasoft.Presentation.Net4", "presentation\Bobasoft.Presentation.Net4.csproj", "{6E27F6F3-25BA-432C-A961-081D29464C45}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bobasoft.Presentation.Net40Client", "presentation\Bobasoft.Presentation.Net40Client.csproj", "{6E27F6F3-25BA-432C-A961-081D29464C45}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "code", "code", "{3DC1B555-CB81-4DF6-8072-6E1B986EFF69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bobasoft.Data.Net40", "data\Bobasoft.Data.Net40.csproj", "{318F48D9-792F-427C-99F9-160A70A87F57}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bobasoft.Data.Net40Client", "data\Bobasoft.Data.Net40Client.csproj", "{318F48D9-792F-427C-99F9-160A70A87F57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bobasoft.Web.Net40", "web\Bobasoft.Web.Net40.csproj", "{2C3A8777-ACA7-494D-88EB-C890131CBFC1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bobasoft.Web.Net40.Tests", "web.tests\Bobasoft.Web.Net40.Tests.csproj", "{AF1E270F-7696-4CCE-A4D9-36722BBD5BFF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bobasoft.Testing.Net40", "testing\Bobasoft.Testing.Net40.csproj", "{43194B94-11F6-41AB-A05C-B8920EA06940}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bobasoft.Testing.Net40Client", "testing\Bobasoft.Testing.Net40Client.csproj", "{43194B94-11F6-41AB-A05C-B8920EA06940}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

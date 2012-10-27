@@ -5,6 +5,7 @@ using System.Reflection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 #else
+using System.Windows;
 using System.Windows.Data;
 #endif
 

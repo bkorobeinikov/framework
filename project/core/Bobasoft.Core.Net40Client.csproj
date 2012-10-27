@@ -5,13 +5,16 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{318F48D9-792F-427C-99F9-160A70A87F57}</ProjectGuid>
+    <ProjectGuid>{AF750580-3293-4CE8-9D0C-8F69E05E8505}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bobasoft.Data</RootNamespace>
-    <AssemblyName>Bobasoft.Data</AssemblyName>
+    <RootNamespace>Bobasoft</RootNamespace>
+    <AssemblyName>Bobasoft.Core</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,15 +27,15 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\net40\</OutputPath>
+    <OutputPath>bin\Debug\net4\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -40,12 +43,16 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\net40\</OutputPath>
+    <OutputPath>bin\Release\net4\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\andromeda-v2.0\projects\web\packages\Newtonsoft.Json.4.5.7\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -55,18 +62,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enumerations\AccessType.cs" />
-    <Compile Include="Enumerations\AvailableStatus.cs" />
-    <Compile Include="Enumerations\Directions.cs" />
-    <Compile Include="Enumerations\Gender.cs" />
-    <Compile Include="Enumerations\Importance.cs" />
-    <Compile Include="Enumerations\InitializationState.cs" />
-    <Compile Include="Enumerations\LockStatus.cs" />
-    <Compile Include="Enumerations\Quality.cs" />
-    <Compile Include="Enumerations\RequestStatus.cs" />
-    <Compile Include="Enumerations\TransactionStatus.cs" />
-    <Compile Include="Moment.cs" />
+    <Compile Include="Caching\DataCache.cs" />
+    <Compile Include="Caching\IDataCacheFactory.cs" />
+    <Compile Include="Collections\DataValueDictionary.cs" />
+    <Compile Include="Collections\DataValueDictionaryGeneric.cs" />
+    <Compile Include="Collections\ObservableDataValueDictionaryGeneric.cs" />
+    <Compile Include="Collections\ObservableDictionary.cs" />
+    <Compile Include="Data\ObservableObject.cs" />
+    <Compile Include="Diagnostics\Diagnostics.cs" />
+    <Compile Include="Diagnostics\ITraceWriter.cs" />
+    <Compile Include="Diagnostics\TraceEntry.cs" />
+    <Compile Include="Diagnostics\TraceWriter.cs" />
+    <Compile Include="Enumerations\ContentType.cs" />
+    <Compile Include="Extensions\AssemblyHelper.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\LinqExtensions.cs" />
+    <Compile Include="Extensions\StreamExtensions.cs" />
+    <Compile Include="Extensions\StringExrensions.cs" />
+    <Compile Include="Extensions\UriHelper.cs" />
+    <Compile Include="Helpers\TypeConverterHelper.cs" />
+    <Compile Include="Infrastructure\Job.cs" />
+    <Compile Include="Infrastructure\JobAttribute.cs" />
+    <Compile Include="Infrastructure\JobOrder.cs" />
+    <Compile Include="IoC\DependencyAttribute.cs" />
+    <Compile Include="IoC\DependencyResolver.cs" />
+    <Compile Include="IoC\Enums.cs" />
+    <Compile Include="IoC\IDependencyResolver.cs" />
+    <Compile Include="IoC\IoC.cs" />
+    <Compile Include="PredicateBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\IEncryption.cs" />
+    <Compile Include="Serialization\IConverter.cs" />
+    <Compile Include="Serialization\JSONConverter.cs" />
+    <Compile Include="Serialization\SafeCamelJSONConverter.cs" />
+    <Compile Include="Serialization\SafeJSONConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -91,9 +120,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Sql\" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

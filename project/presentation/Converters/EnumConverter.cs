@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Windows.UI.Xaml.Data;
 #else
+using System.Windows;
 using System.Windows.Data;
 using System.ComponentModel;
 using System.Globalization;
