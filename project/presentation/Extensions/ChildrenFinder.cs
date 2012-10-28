@@ -90,13 +90,15 @@ namespace Bobasoft.Presentation.Extensions
         {
             if (depObj != null)
             {
-                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+	            int count = VisualTreeHelper.GetChildrenCount(depObj);
+	            for (int i = 0; i < count; i++)
                 {
-                    var child = VisualTreeHelper.GetChild(depObj, i) as T;
+	                var depObjChild = VisualTreeHelper.GetChild(depObj, i);
+	                var child = depObjChild as T;
                     if (child != null)
                         yield return child;
 
-                    foreach (var childOfChild in FindAllVisualChildren<T>(child))
+					foreach (var childOfChild in FindAllVisualChildren<T>(depObjChild))
                     {
                         yield return childOfChild;
                     }
