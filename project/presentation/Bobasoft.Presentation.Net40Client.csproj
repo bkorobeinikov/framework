@@ -76,7 +76,9 @@
     <Compile Include="ClientEnvironment.cs" />
     <Compile Include="Extensions\AnimationHelper.cs" />
     <Compile Include="Extensions\ChildrenFinder.cs" />
+    <Compile Include="MVVM\PageModel.cs" />
     <Compile Include="MVVM\ModelBase.cs" />
+    <Compile Include="MVVM\PageBase.cs" />
     <Compile Include="MVVM\WindowBase.cs" />
     <Compile Include="MVVM\WindowModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
