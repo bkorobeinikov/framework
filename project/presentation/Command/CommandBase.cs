@@ -1,11 +1,10 @@
 using System;
-using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
 
 namespace Bobasoft.Presentation
 {
-    public abstract class CommandBase : ICommand, INotifyPropertyChanged
+    public abstract class CommandBase : ObservableObject, ICommand
     {
         //======================================================
         #region _Constructors_
@@ -43,6 +42,7 @@ namespace Bobasoft.Presentation
             }
         }
 
+        protected bool _isEnable;
         /// <summary>
         /// Gets or sets enable parameter of command.
         /// </summary>
@@ -60,6 +60,7 @@ namespace Bobasoft.Presentation
             }
         }
 
+        protected bool _isVisible;
         public bool IsVisible
         {
             get { return _isVisible; }
@@ -73,8 +74,14 @@ namespace Bobasoft.Presentation
             }
         }
 
+        private bool _isChecked;
+        public bool IsChecked
+        {
+            get { return _isChecked; }
+            set { SetProperty(ref _isChecked, value, "IsChecked"); }
+        }
+
         public event EventHandler CanExecuteChanged;
-        public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
 
@@ -110,19 +117,11 @@ namespace Bobasoft.Presentation
                 CanExecuteChanged(this, EventArgs.Empty);
         }
 
-        protected void RaisePropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         #endregion
 
         //======================================================
         #region _Private, protected, internal fields_
 
-        protected bool _isEnable;
-        protected bool _isVisible;
         protected string _text;
 
         #endregion
