@@ -85,9 +85,9 @@
     <Compile Include="SmartDispatcher.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\core\Bobasoft.Core.Net4.csproj">
+    <ProjectReference Include="..\core\Bobasoft.Core.Net40Client.csproj">
       <Project>{AF750580-3293-4CE8-9D0C-8F69E05E8505}</Project>
-      <Name>Bobasoft.Core.Net4</Name>
+      <Name>Bobasoft.Core.Net40Client</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

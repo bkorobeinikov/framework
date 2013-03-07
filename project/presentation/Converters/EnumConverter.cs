@@ -67,7 +67,7 @@ namespace Bobasoft.Presentation.Converters
                 foreach (var fieldInfo in fields)
                 {
                     var a = fieldInfo.GetCustomAttributes(typeof (DescriptionAttribute), false).FirstOrDefault() as DescriptionAttribute;
-                    values.Add(System.Convert.ToInt64(fieldInfo.GetRawConstantValue()), a != null ? a.Description : fieldInfo.GetValue(null).ToString());
+                    values[System.Convert.ToInt64(fieldInfo.GetRawConstantValue())] = a != null ? a.Description : fieldInfo.GetValue(null).ToString();
                 }
 
                 _cache.Add(type, values);
