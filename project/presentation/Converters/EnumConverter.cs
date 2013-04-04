@@ -5,16 +5,37 @@ using System.Linq;
 using System.Reflection;
 using Windows.UI.Xaml.Data;
 #else
+using System.Reflection;
 using System.Windows;
 using System.Windows.Data;
 using System.ComponentModel;
 using System.Globalization;
+using System.Windows.Input;
+
 #endif
 
 namespace Bobasoft.Presentation.Converters
 {
     public class EnumConverter : IValueConverter
     {
+        //======================================================
+        #region _Constructors_
+
+        static EnumConverter()
+        {
+            Mappings = new Dictionary<Type, Dictionary<long, string>>();
+            Mappings[typeof (Key)] = new Dictionary<long, string>
+                {
+                    {(long) Key.PrintScreen, "Print Screen"},
+                    {(long) Key.CapsLock, "Caps Lock"},
+                    {(long) Key.NumLock, "Num Lock"},
+                    {(long) Key.PageDown, "Page Down"},
+                    {(long) Key.PageUp, "Page Up"},
+                };
+        }
+
+        #endregion
+
         //======================================================
         #region _Public methods_
 
@@ -66,8 +87,8 @@ namespace Bobasoft.Presentation.Converters
                 var values = new Dictionary<long, string>(fields.Count());
                 foreach (var fieldInfo in fields)
                 {
-                    var a = fieldInfo.GetCustomAttributes(typeof (DescriptionAttribute), false).FirstOrDefault() as DescriptionAttribute;
-                    values[System.Convert.ToInt64(fieldInfo.GetRawConstantValue())] = a != null ? a.Description : fieldInfo.GetValue(null).ToString();
+                    var key = System.Convert.ToInt64(fieldInfo.GetRawConstantValue());
+                    values[key] = GetEnumFieldName(type, key, fieldInfo);
                 }
 
                 _cache.Add(type, values);
@@ -118,14 +139,37 @@ namespace Bobasoft.Presentation.Converters
 
 		#endregion
 
+        //======================================================
+        #region _Private, protected, internal methods_
+
+        private static string GetEnumFieldName(Type type, long key, FieldInfo field)
+        {
+            var a = field.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault() as DescriptionAttribute;
+            if (a != null)
+                return a.Description;
+
+            Dictionary<long, string> mappings;
+            if (Mappings.TryGetValue(type, out mappings))
+            {
+                if (mappings.ContainsKey(key))
+                    return mappings[key];
+            }
+
+            return field.Name;
+        }
+
+        #endregion
+
 		//======================================================
-        #region _Private, protected, internal fields_
+        #region _Fields_
 
 #if WinRT
 		protected static Dictionary<TypeInfo, IDictionary<long, string>> Cache = new Dictionary<TypeInfo, IDictionary<long, string>>(3);
 #else
         protected static Dictionary<Type, IDictionary<long, string>> _cache = new Dictionary<Type, IDictionary<long, string>>(3);
 #endif
+
+        protected static Dictionary<Type, Dictionary<long, string>> Mappings;
 
         #endregion
     }
