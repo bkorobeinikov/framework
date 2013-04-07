@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Bobasoft.Presentation.MVVM
 {
@@ -11,16 +10,18 @@ namespace Bobasoft.Presentation.MVVM
         public WindowBase()
         {
             base.Activated += (sender, args) =>
-                {
-                    var newEventArgs = new RoutedEventArgs(ActivatedEvent);
-                    RaiseEvent(newEventArgs);
-                };
+            {
+                var newEventArgs = new RoutedEventArgs(ActivatedEvent);
+                RaiseEvent(newEventArgs);
+            };
 
             base.Deactivated += (sender, args) =>
-                {
-                    var newEventArgs = new RoutedEventArgs(DeactivatedEvent);
-                    RaiseEvent(newEventArgs);
-                };
+            {
+                var newEventArgs = new RoutedEventArgs(DeactivatedEvent);
+                RaiseEvent(newEventArgs);
+            };
+
+            CanBeClosed = true;
         }
 
         #endregion
@@ -58,11 +59,21 @@ namespace Bobasoft.Presentation.MVVM
             remove { RemoveHandler(DeactivatedEvent, value); }
         }
 
+        public bool CanBeClosed { get; set; }
+
         #endregion
 
         //======================================================
         #region _Private, protected, internal methods_
 
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            if (!CanBeClosed)
+            {
+                e.Cancel = true;
+            }
+            base.OnClosing(e);
+        }
 
         #endregion
 
