@@ -92,11 +92,16 @@ namespace Bobasoft.Presentation.Converters
 
 			if (typeof (Enum).GetTypeInfo().IsAssignableFrom(targetType.GetTypeInfo()))
 #else
-			if (typeof(Enum).IsAssignableFrom(targetType))
+			if (typeof (Enum).IsAssignableFrom(targetType))
 #endif
 			{
-				var v = !Inverse ? (bool) value : !(bool) value;
-				return v ? TypeConverterHelper.ConvertFromString(targetType, param) : DependencyProperty.UnsetValue;
+			    var v = !Inverse ? (bool) value : !(bool) value;
+			    return v ? TypeConverterHelper.ConvertFromString(targetType, param) : DependencyProperty.UnsetValue;
+			}
+			else
+			{
+                var v = !Inverse ? (bool)value : !(bool)value;
+                return v ? TypeConverterHelper.ConvertFromString(targetType, param) : DependencyProperty.UnsetValue;
 			}
 
 			throw new ArgumentException("Unsupported target type", "targetType");
